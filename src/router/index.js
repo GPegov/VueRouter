@@ -1,15 +1,16 @@
 import { createRouter, createWebHistory } from "vue-router";
 import HomeView from "@/views/HomeView.vue";
-
+import MyParents from "@/views/MyParents.vue"
 
 
 const routes = [
   {path: "/", name: "home", component: HomeView,},
-  {path:'/destination/:id/:slug', 
+  {path: "/Parents", name: "parents", component: MyParents,},
+  /*{path:'/destination/:id/:slug', 
    name: 'destination.show', 
    component: () => import('@/views/DestinationShow.vue'),
   props: route=>({id:parseInt(route.params.id)}),
-  }
+  }*/
 ];
 
 const router = createRouter({
