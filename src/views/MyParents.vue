@@ -70,8 +70,6 @@ const storePersonification = usePersonification()
     display: flex;
     flex-direction: row;
 }
-.mainHeader {
-    
-}
+
 }
 </style>

@@ -6,11 +6,11 @@ import MyParents from "@/views/MyParents.vue"
 const routes = [
   {path: "/", name: "home", component: HomeView,},
   {path: "/Parents", name: "parents", component: MyParents,},
-  /*{path:'/destination/:id/:slug', 
+  {path:'/destination/:id/:slug', 
    name: 'destination.show', 
    component: () => import('@/views/DestinationShow.vue'),
   props: route=>({id:parseInt(route.params.id)}),
-  }*/
+  }
 ];
 
 const router = createRouter({

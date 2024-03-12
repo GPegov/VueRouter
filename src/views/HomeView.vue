@@ -1,7 +1,10 @@
 <template>
   <div class="home">
-    <h1 class="home">All Destinations</h1>
+    <h1 class="home">Торжество состоится 21 июля 2024 года</h1>
     <div class="destinations">
+      <router-link to="/Parents">
+        Наши родители
+      </router-link>
       <!--<router-link 
       v-for="destination in destinations"
       :key="destination.id"
@@ -10,7 +13,7 @@
     <h2>{{ destination.name }}</h2>
     <img :src="`/images/${destination.image}`" alt="destination.name">
     </router-link>-->
-    <router-link>MyParents</router-link>
+    
     </div>
     
   </div>
@@ -19,4 +22,5 @@
 <script setup>
 //import sourceData from '@/data.json'
 //let destinations = sourceData.destinations
+
 </script>

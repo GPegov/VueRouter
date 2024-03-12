@@ -1,6 +1,4 @@
 <template>
-
-  <router-link to="/Parents">Родители</router-link>
   
   <the-navigation />
   <div class="container">
