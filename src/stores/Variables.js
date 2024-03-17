@@ -15,20 +15,25 @@ export const useVariables = defineStore('variables', {
             foodMeat: false,
             foodFish: false,
             },
-            formResults: []
+            formResults: [],
+            showToast: false
     }),
     getters: {
         
     },
     actions: { 
-        saveGuest (state) {
-            this.guests.push(
+        saveGuest () {
+            if ( (this.guest.name.length != 0) && (this.guest.surname.length != 0) ) {
+                this.guests.push(
                 {id:Date.now(), 
                 name: this.guest.name,
                 surname: this.guest.surname
                 }),
-            this.guest.name = '',
-            this.guest.surname = ''
+                this.guest.name = '',
+                this.guest.surname = ''
+            }
+            else this.triggerToast()
+            
             
         },
         deleteGuest (index) {
@@ -61,6 +66,10 @@ export const useVariables = defineStore('variables', {
                 foodMeat: false,
                 foodFish: false 
             }
+        },
+         triggerToast () {
+            this.showToast = true;
+            setTimeout(() => this.showToast = false, 2000)
         }
     }
 })

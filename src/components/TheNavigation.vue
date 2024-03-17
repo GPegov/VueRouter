@@ -1,32 +1,37 @@
 <template>
 
     <nav id="nav">
-      <transition name="fade" mode="out-in">
-        <div class="navItem menuBar">
-          
-          <img id="menuIcon" v-show ="show === false" src="@/img/MenuIcons/MenuIcon.png" 
-            alt="Menu" @click="show = !show" :key="Date.now()"/>
-
-          <img id="clear" v-show="show === true" src="@/img/MenuIcons/Clear.png" 
-            alt="Clear" @click="show = !show" :key="Date.now()"/>
-            
       
+        <div class="navItem menuBarWrap " v-show ="show === false" :key="Date.now()">
+          <img class="MenuIcon" src="@/img/MenuIcons/MenuIcon.png" 
+            alt="Menu" @click="show = !show"/>
           <router-link id="logo" to="/">Виталий и Екатерина</router-link>
         </div>
-      </transition>
       
-      <div class="navItem">
-        <router-link to="/CheckIn">Подтвердите присутствие</router-link>
-      </div>
-      <div class="navItem">
-        <router-link to="/Parents">Наши родители</router-link>
-      </div>
-      <div class="navItem">
-        <router-link to="/Place">Место проведения мероприятия</router-link>
-      </div>
-      <div class="navItem">
-        <router-link to="/SeatingPlan">План рассадки гостей</router-link>
-      </div>
+
+      
+        <div class="navItem menuBarExpand" v-show="show === true">
+          <div class="navItemExpand">
+            <img class="MenuIcon"  src="@/img/MenuIcons/Clear.png" 
+            alt="Clear" @click="show = !show" :key="Date.now()"/>
+          <router-link id="logo" to="/">Виталий и Екатерина</router-link>
+          </div>
+          
+          <div class="navItem">
+            <router-link to="/CheckIn" @click="show = false">Подтвердите присутствие</router-link>
+          </div>
+          <div class="navItem">
+            <router-link to="/Parents" @click="show = false">Наши родители</router-link>
+          </div>
+          <div class="navItem">
+            <router-link to="/Place" @click="show = false">Место проведения мероприятия</router-link>
+          </div>
+          <div class="navItem">
+            <router-link to="/SeatingPlan" @click="show = false">План рассадки гостей</router-link>
+          </div>
+        </div>
+      
+      
       
     </nav>
 </template>
@@ -40,43 +45,43 @@ const show = ref(false);
 #nav .active-link {
     color: rgb(130, 255, 255);
 }
-#menuIcon {
+.menuIcon {
   display: none;
 }
 
 @media screen and (max-width: 500px) {
-#menuIcon {
+.MenuIcon {
   display: flex;
-  width: 60px;
-  height: 60px;
-  margin-bottom: 10px;
+  width: 50px;
+  height: 50px;
   margin-right: 70px;
   margin-left: -15px;
   cursor:pointer;
   
 }
-#clear {
-  display: flex;
-  width: 60px;
-  height: 60px;
-  margin-bottom: 10px;
-  margin-right: 70px;
-  margin-left: -15px;
-  cursor:pointer;
-}
+
 .navItem {
-  display: flex;
-  flex-direction: column;
-  padding-top: 10px;
+  font-weight: 900;
+  font-size: 14pt;
+  padding-top: 20px;
 }
-.menuBar{
+.menuBarWrap{
   display: flex;
   flex-direction: row;
+  margin-top: 10px;
+}
+.navItemExpand{
+  display: flex;
+  flex-direction: row;
+}
+.menuBarExpand {
+  display: flex;
+  flex-direction: column;
+  margin-top: 10px;
 
 }
 #nav {
-  display: flex;
-  flex-direction: column;
+  padding-bottom: 20px;
   padding-top: 0px;
 }
 }

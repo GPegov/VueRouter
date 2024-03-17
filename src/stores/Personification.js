@@ -20,7 +20,8 @@ export const usePersonification = defineStore('personification', {
         groomsMotherFullName: 'Екатерина Андреевна Беспалова',
         groomsMotherWithMiddleName: 'Екатерина Андреевна',
         groomsMotherOccupation: 'Швея высшей категории. Сотрудница ОАО "Воркутинская швейная фабрика"',
-    // Nephews
+    
+    //Nephews
         nephew_1: 'Юлия Беспалова',
         nephew_2: 'Никанор Беспалов',
         nephew_3: 'Лариса Натынзина',
@@ -29,6 +30,8 @@ export const usePersonification = defineStore('personification', {
         nephew_6: 'Максим Родионов',
         nephew_7: 'Оля Родионова',
         nephew_8: 'Настя Родионова',
+        
+        
     //Friends
         friend_1: 'Марина',
         friend_2: 'Денис',
