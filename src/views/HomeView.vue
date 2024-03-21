@@ -1,32 +1,33 @@
 <template>
   <div class="home">
     <h1 class="theDate">{{ storePersonification.dateOfMarriage }}</h1>
-    <div class="destinations">
-      <div class="menuItem">
-        <router-link to="/CheckIn">
-          Подтвердите присутствие
-        </router-link>
-      </div>
+    
+      <div class="destinations">
+        <div class="menuItem">
+          <router-link to="/CheckIn" @click="show = false">
+            Подтвердите присутствие
+          </router-link>
+        </div>
 
-      <div class="menuItem">
-        <router-link to="/CheckIn">
-          Наши родители
-        </router-link>
-      </div>
+        <div class="menuItem">
+          <router-link to="/Parents" @click="show = false">
+            Наши родители
+          </router-link>
+        </div>
 
-      <div class="menuItem">
-        <router-link to="/CheckIn">
-          Место проведения мероприятия
-        </router-link>
-      </div>
+        <div class="menuItem">
+          <router-link to="/Place" @click="show = false">
+            Место проведения мероприятия
+          </router-link>
+        </div>
 
-      <div class="menuItem">
-        <router-link to="/CheckIn">
-          План рассадки гостей
-        </router-link>
+        <div class="menuItem">
+          <router-link to="/Plan" @click="show = false">
+            План рассадки гостей
+          </router-link>
+        </div>
       </div>
     
-    </div>
 
     <div class="invitation">
       <p class="invitationText">{{ storePersonification.headingParagraphSugaryIntro_1 }}</p>

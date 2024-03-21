@@ -2,6 +2,14 @@
 import { useVariables } from '@/stores/Variables.js';
 const storeVariables = useVariables();
 import MyToast from '@/components/MyToast.vue';
+
+const vAutofocus = {
+    mounted(el) {
+        el.focus()
+    }
+}
+
+
 </script>
 
 <template>
@@ -12,16 +20,19 @@ import MyToast from '@/components/MyToast.vue';
             @submit.prevent>
             <div class="inputField">
                 <input 
+                    v-autofocus
                     class="inputs"
                     v-model="storeVariables.guest.name"
                     type="text" 
                     placeholder="Имя Гостя"
+                    
                 >
                 <input 
                     class="inputs"
                     v-model="storeVariables.guest.surname" 
                     type="text" 
                     placeholder="Фамилия Гостя"
+                    
                 >
             </div>
             <button
@@ -32,7 +43,7 @@ import MyToast from '@/components/MyToast.vue';
                 Добавить гостя
             </button>
             
-            <transition name="toast" :key="name">
+            <transition name="toast">
                 <MyToast v-if="storeVariables.showToast" />
             </transition>
 
