@@ -29,6 +29,7 @@
       <div class="navItem">
         <router-link to="/Plan" @click="show = false">План рассадки гостей</router-link>
       </div>
+      
     </div>
       
     
@@ -88,6 +89,10 @@ const closeMenu = () => {
 
 /*----------End of the animation----------*/
 
+/* #nav a.router-link-exact-active{
+  color: rgb(130, 255, 255);
+  
+} */
 
 #nav .active-link {
     color: rgb(130, 255, 255);
@@ -98,6 +103,7 @@ const closeMenu = () => {
   flex-direction: row;
   padding-bottom: 20px;
   padding-top: 0px;
+  overflow: hidden;
 }
 .MenuIcon {
   display: flex;

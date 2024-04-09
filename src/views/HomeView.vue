@@ -26,13 +26,14 @@
             План рассадки гостей
           </router-link>
         </div>
+        
       </div>
     
 
     <div class="invitation">
-      <p class="invitationText">{{ storePersonification.headingParagraphSugaryIntro_1 }}</p>
-      <p class="invitationText">{{ storePersonification.headingParagraphSugaryIntro_2 }}</p>
-      <p class="invitationText">{{ storePersonification.headingParagraphSugaryIntro_3 }}</p>
+      <p class="invitationText">{{ storePersonification.headingParagraphIntro_1 }}</p>
+      <p class="invitationText">{{ storePersonification.headingParagraphIntro_2 }}</p>
+      <p class="invitationText">{{ storePersonification.headingParagraphIntro_3 }}</p>
     </div>
   </div>
 </template>
@@ -77,7 +78,7 @@ padding-top: 40px;
     padding-top: 30px;
     padding-bottom: 30px;
 }
-@media screen and (max-width: 500px) {
+@media screen and (max-width: 768px) {
 .destinations{
   display: flex;
   flex-direction: column;

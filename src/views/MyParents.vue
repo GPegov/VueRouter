@@ -57,7 +57,7 @@ const storePersonification = usePersonification()
 }
 
 
-@media screen and (min-width: 500px) {
+@media screen and (min-width: 768px) {
 .parentsPhotos {
     display: flex;
     flex-direction: row;

@@ -99,7 +99,7 @@ const storePersonification = usePersonification()
 }
 
 
-@media screen and (max-width: 500px) {
+@media screen and (max-width: 768px) {
 .TableRows{
 display: flex;
 flex-direction: column;

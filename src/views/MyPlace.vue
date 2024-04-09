@@ -13,12 +13,23 @@
                 <p>{{ storePersonification.banquetAddress }}</p> 
             </div>
         </div>
+    <YandexMap />
+
+    
+
+
+
+
+        
+    
 </template>
 
 <script setup>
-import { usePersonification } from '@/stores/Personification'
-const storePersonification = usePersonification()
 
+import YandexMap from '@/components/YandexMap.vue';
+import { usePersonification } from '@/stores/Personification'
+
+const storePersonification = usePersonification()
 
 
 
@@ -60,5 +71,14 @@ const storePersonification = usePersonification()
     flex-direction: column;
     padding-left: 10px;
     padding-right: 10px;
+}
+.mainHeader {
+    display: flex;
+    text-align: center;
+    margin-top: 0px;
+}
+
+@media screen and (min-width: 768px) {
+    
 }
 </style>

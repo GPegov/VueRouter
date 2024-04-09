@@ -1,36 +1,39 @@
 <template>
-  
-  <the-navigation />
+    <the-navigation/>
   <div class="container">
-    <router-view />
-    <!-- <router-view v-slot="{ Component }">
-      <transition name="route" mode="out-in">
-        <component :is="Component"></component>
+
+    <router-view v-slot="{ Component }">
+      <transition name="fade" mode="out-in">
+        <div :key="$route.path">  
+          <component :is="Component"></component>
+        </div>
       </transition>
-    </router-view> -->
+    </router-view>
+
   </div>
 </template>
 
 <script setup>
   import TheNavigation from "@/components/TheNavigation.vue";
+
 </script>
 
 <style>
 /*----------route transitions----------*/
-.route-enter-from {
+.fade-enter-from {
   opacity: 0;
-  transform: translateY(100px);
+  transform: translateY(40px);
 }
-.route-enter-active {
+.fade-enter-active {
   opacity: 1;
-  transition: all 1s ease-out;
+  transition: all 0.2s ease-out;
 }
-.route-leave-to {
+.fade-leave-to {
   opacity: 0;
-  transform: translateY(-100px);
+  transform: translateY(-40px);
 }
-.route-leave-active {
-  transition: all 1s ease-in;
+.fade-leave-active {
+  transition: all 0.2s ease-out;
 }
 /*----------end of route transitions----------*/
 </style>
