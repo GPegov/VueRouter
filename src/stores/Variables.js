@@ -1,4 +1,7 @@
 import { defineStore } from 'pinia'
+import axios from 'axios'
+
+
 
 export const useVariables = defineStore('variables', {
     state: () => ({
@@ -62,6 +65,7 @@ export const useVariables = defineStore('variables', {
         },
         askGuestsResult () {
             this.formResults.push({id: Date.now(), Guests: this.guests, Properties: this.familyProperties})
+
             this.guests = []
             this.familyProperties = {
                 alone: false,
@@ -97,9 +101,76 @@ export const useVariables = defineStore('variables', {
                 {name: "Вася", surname: "Рогов", id: Math.random()},
                 {name: "Тётя", surname: "Мотя", id: Math.random()},
                 ... this.guests]
+        },
+        postDb() {
+
+            // init app & middleware
+
+            // db connection
+            
+            let book = this.formResults
+
+            axios
+                .post ('http://localhost:27017/books', { book })
+        
+                // db.collection('books')
+                //     .insertOne(book)
+                // .then(response => {
+                //     console.log(response) 
+                // })
+                // .catch(err => {
+                //     err.status(500).json({err: 'Could not create a new document'})
+                // })
+            },
+
+        getDb () {
+            axios.get('http://localhost:27017/books').then(response => {
+                console.log(response)
+            })
         }
 
-    }
+            
+            
+
+        //     const express = require('express')
+            
+        //     const { connectToDb, getDb } = require('./db')
+
+        //     // init app & middleware
+        //     const app = express()
+        //     app.use(express.json())
+
+        //     // db connection
+        //     let db
+
+        //     connectToDb((err) => {
+        //         if(!err) {
+        //             app.listen(3000, () => {
+        //                 console.log('app listening on port 3000')
+        //             })
+        //             db = getDb()
+        //         }
+        //     })
+
+        //     app.post('/books', (req, res) => {
+        //         const book = this.formResults
+
+        //         db.collection('books')
+        //             .insertOne(book)
+        //             .then(result => {
+        //                 res.status(201).json(result) 
+        //             })
+        //             .catch(err => {
+        //                 res.status(500).json({err: 'Could not create a new document'})
+        //             })
+        //     })
+
+
+            
+        // }
+
+
+    
 
 
     // saveGuest () {
@@ -132,4 +203,4 @@ export const useVariables = defineStore('variables', {
         //         }
         //   }
         // },
-})
+    }})

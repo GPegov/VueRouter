@@ -8,7 +8,8 @@ const routes = [
   {path: "/CheckIn", name: "checkIn", component: () => import ('@/views/MyAskGuests.vue')},
   {path: "/Parents", name: "parents", component: () => import ('@/views/MyParents.vue')},
   {path: "/Place", name: "place", component: () => import ('@/views/MyPlace.vue')},
-  {path:"/Plan", name: "plan", component: () => import ('@/views/MySeatingPlan.vue')}
+  {path:"/Plan", name: "plan", component: () => import ('@/views/MySeatingPlan.vue')},
+  {path:"/GuestList", name: "guestlist", component: () => import ('@/views/MyGuestsDb.vue')}
   
   
 ];

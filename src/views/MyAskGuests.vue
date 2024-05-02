@@ -4,6 +4,7 @@ import MyToast from '@/components/MyToast.vue';
 import FadeTransition from '@/transitions/FadeTransition.vue';
 import { ref } from 'vue'
 import MyPopup from '@/components/MyPopup.vue';
+import axios from 'axios';
 
 
 
@@ -26,6 +27,7 @@ const vAutofocus = {
 </script>
 
 <template>
+    
 <div class="guestForm">
     <h1 class="mainHeader">Подтвердите присутствие</h1>
 
@@ -299,6 +301,7 @@ const vAutofocus = {
                         v-show="((storeVariables.familyProperties.foodDoesntMatter || storeVariables.familyProperties.foodMeat || storeVariables.familyProperties.foodFish) && (storeVariables.guests.length > 0))"
                         class="btn send"
                         @click="storeVariables.askGuestsResult(),
+                                
                                 storeVariables.popupTriggerTimeout()
                         "
                         

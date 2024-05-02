@@ -29,6 +29,9 @@
       <div class="navItem">
         <router-link to="/Plan" @click="show = false">План рассадки гостей</router-link>
       </div>
+      <div class="navItem">
+        <router-link to="/GuestList" @click="show = false">Список гостей</router-link>
+      </div>
       
     </div>
       

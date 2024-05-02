@@ -8,6 +8,7 @@ import VueSmoothScroll from 'vue3-smooth-scroll';
 import { Vue3Geolocation } from 'vue3-geolocation';
 
 
+
 import ymapsVueComponents from 'ymaps-vue-components';
 
 
@@ -21,6 +22,7 @@ createApp(App)
             .use(VueSmoothScroll, {duration: 700, updateHistory: false})
             .use(Vue3Geolocation)
             .use(ymapsVueComponents)
+            
             
             .mount("#app");
 
