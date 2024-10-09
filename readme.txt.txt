@@ -33,7 +33,24 @@
 		--DONE-- added 2 placemarks on the map for place of marriage and reataurant
 09.04.2024
 		--DONE-- added a popup window on clicking submit button in MyAskGuests
-	add sending guest information from MyAskGuests to MongoDB
+01.05.2024
+		--DONE-- try fetch method to interact with mongodb database
+		--DONE-- try using json server instead of mongodb
+	learn more about axios library
+	learn more about node js
+02.05.2024
+	develop a component that takes data from json file or db and shows it in a table or so.
+		--DONE-- send FormResults to MongoDb
+		--Can't be done due to sanctions-- send formResults to MongoDB Atlas
+21.07.2024 
+	Edit layout of a desktop version
+	Develop a server using my old laptop and store MongoDb database in it.
+	Pass any Nodejs course
+	Learn more about IndexedDB
+	Learn more about Docker
+  
+	
+	
 
 
 

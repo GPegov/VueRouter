@@ -1,20 +1,19 @@
 <script setup>
 import { useVariables } from '@/stores/Variables.js';
 import MyToast from '@/components/MyToast.vue';
-import FadeTransition from '@/transitions/FadeTransition.vue';
-import { ref } from 'vue'
+// import FadeTransition from '@/transitions/FadeTransition.vue';
 import MyPopup from '@/components/MyPopup.vue';
-import axios from 'axios';
+// import axios from 'axios';
 
 
 
-const icons = ref([
-    {name:'alternate_email', text: 'Буду один/одна'}, {name:'local_phone', text: 'Буду с парой'},
-    {name:'alternate_email', text: 'С детьми'}, {name:'local_phone', text: 'Без детей'},
-    {name:'local_post_office', text: 'На машине'}, {name:'local_fire_department', text: 'Нужен трансфер'},
-    {name:'local_post_office', text: 'Мясо'}, {name:'local_fire_department', text: 'Рыба'},
+// const icons = ref([
+//     {name:'alternate_email', text: 'Буду один/одна'}, {name:'local_phone', text: 'Буду с парой'},
+//     {name:'alternate_email', text: 'С детьми'}, {name:'local_phone', text: 'Без детей'},
+//     {name:'local_post_office', text: 'На машине'}, {name:'local_fire_department', text: 'Нужен трансфер'},
+//     {name:'local_post_office', text: 'Мясо'}, {name:'local_fire_department', text: 'Рыба'},
 
-])
+// ])
 
 
 const storeVariables = useVariables();
@@ -301,7 +300,6 @@ const vAutofocus = {
                         v-show="((storeVariables.familyProperties.foodDoesntMatter || storeVariables.familyProperties.foodMeat || storeVariables.familyProperties.foodFish) && (storeVariables.guests.length > 0))"
                         class="btn send"
                         @click="storeVariables.askGuestsResult(),
-                                
                                 storeVariables.popupTriggerTimeout()
                         "
                         

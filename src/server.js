@@ -1,17 +1,20 @@
 const express = require('express')
 const { ObjectId } = require('mongodb')
-const { connectToDb, getDb } = require('./db')
+const { connectToDb, getDb } = require('./dataBase.js')
+const cors = require('cors')
 
-// init app & middleware
-const app = express()
-app.use(express.json())
 
-// db connection
+const server = express()
+server.use(express.json())
+server.use(cors())
+// server.use('/guests', cors())
+
+
 let db
 
 connectToDb((err) => {
     if(!err) {
-        app.listen(3000, () => {
+        server.listen(3000, () => {
             console.log('app listening on port 3000')
         })
         db = getDb()
@@ -20,24 +23,15 @@ connectToDb((err) => {
 })
 
 
+server.get('/guests', (req, res) => {
 
-//routes
+    let guests = []
 
-app.get('/books', (req, res) => {
-    //current page
-    const page = req.query.p || 0
-    const booksPerPage = 3
-
-    let books = []
-
-    db.collection('books')
+    db.collection('guests')
      .find() 
-     .sort({ author: 1})
-     .skip(page * booksPerPage)
-     .limit(booksPerPage)
-     .forEach(book => books.push(book))
+     .forEach(guest => guests.push(guest))
      .then(() => {
-        res.status(200).json(books)
+        res.status(200).json(guests)
      })
      .catch(() => {
         res.status(500).json({error: 'Could not fetch the documents'})
@@ -45,10 +39,10 @@ app.get('/books', (req, res) => {
 
 })
 
-app.get('/books/:id', (req, res) => {
+server.get('/guests/:id', (req, res) => {
 
     if(ObjectId.isValid(req.params.id)) {
-        db.collection('books')
+        db.collection('guests')
         .findOne({_id: new ObjectId(req.params.id)})
         .then(doc => {
             res.status(200).json(doc)
@@ -64,11 +58,11 @@ app.get('/books/:id', (req, res) => {
 })
 
 
-app.post('/books', (req, res) => {
-    const book = req.body
+server.post('/guests', (req, res) => {
+    const guest = req.body
 
-    db.collection('books')
-        .insertOne(book)
+    db.collection('guests')
+        .insertOne(guest)
         .then(result => {
             res.status(201).json(result) 
         })
@@ -78,9 +72,9 @@ app.post('/books', (req, res) => {
 })
 
 
-app.delete('/books/:id', (req, res) => {
+server.delete('/guests/:id', (req, res) => {
     if(ObjectId.isValid(req.params.id)) {
-        db.collection('books')
+        db.collection('guests')
         .deleteOne({_id: new ObjectId(req.params.id)})
         .then(result => {
             res.status(200).json(result)
@@ -93,10 +87,10 @@ app.delete('/books/:id', (req, res) => {
     }
 })
 
-app.patch('/books/:id', (req, res) => {
+server.patch('/guests/:id', (req, res) => {
     const updates = req.body
     if(ObjectId.isValid(req.params.id)) {
-        db.collection('books')
+        db.collection('guests')
         .updateOne({_id: new ObjectId(req.params.id)}, {$set: updates})
         .then(result => {
             res.status(200).json(result)
