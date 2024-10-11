@@ -32,6 +32,9 @@
       <div class="navItem">
         <router-link to="/GuestList" @click="show = false">Список гостей</router-link>
       </div>
+      <div class="navItem">
+        <router-link to="/personification" @click="show = false">Персонификация сайта</router-link>
+      </div>
       
     </div>
       
