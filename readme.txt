@@ -10,7 +10,7 @@
 		--DONE-- (added horisontal centering of pressed buttons in MyAskGuests by scrolling)
 	hide screen keyboard after adding a guest and focus on guest list
 23.03.2024
-	add popup window after pressing "send" button in MyAskGuests
+		--	Done-- (add popup window after pressing "send" button in MyAskGuests)
 	--in progress-- add transitions in vue router using "animate css" library and by setting absolute position to router component
 25.03.2024
 		--DONE-- (swapped "saveGuest" and "deleteGuest" functions to their more advanced versions)
@@ -44,10 +44,15 @@
 		--Can't be done due to sanctions-- send formResults to MongoDB Atlas
 21.07.2024 
 	Edit layout of a desktop version
-	Develop a server using my old laptop and store MongoDb database in it.
+	Develop a server using my old laptop and store MongoDb database in it. (I will need static IP address for it, maybe i should find another solution)
 	Pass any Nodejs course
 	Learn more about IndexedDB
 	Learn more about Docker
+
+19.10.2024
+	Complete MyPersonalisationForm.vue:
+		- Set universal classes for rows of guests
+		- Write a function that takes first names of Bride and Groom and insert them in special field in MyPersonalisationForm 
   
 	
 	

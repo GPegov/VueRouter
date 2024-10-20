@@ -150,6 +150,7 @@ const closeMenu = () => {
 }
 
 
+
 @media screen and (max-width: 500px) {
 .MenuIcon {
   display: flex;
