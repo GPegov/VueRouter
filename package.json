@@ -5,7 +5,9 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon index.js"
   },
   "dependencies": {
     "@vueuse/components": "^10.9.0",
@@ -18,7 +20,8 @@
     "gsap": "^3.12.5",
     "json-server": "^1.0.0-alpha.23",
     "mongodb": "^6.5.0",
-    "pinia": "^2.1.7",
+    "nodemon": "^3.1.7",
+    "pinia": "^2.2.5",
     "v-dropdown": "^3.0.0",
     "vue": "^3.2.13",
     "vue-axios": "^3.5.2",

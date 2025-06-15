@@ -1,6 +1,8 @@
 <template>
     <div class="PersonFormContainer">
-        <h1>Форма для персонификации сайта</h1>
+        <div class="ForH1">
+            <h1>Форма для персонификации сайта</h1>
+        </div>
 
         <!--Bride and Groom-->
         <div class="ForH2">
@@ -12,6 +14,7 @@
                 <p>Имя невесты</p>
                 <input v-model="storePersonification.bridesName" type="text" placeholder="Введите имя невесты">
             </div>
+            <button @click="storeVariables.sendPersonoficationForm">Send Form</button>
 
             <div class="PersonItemVip">
                 <p>Имя жениха</p>
@@ -222,7 +225,7 @@
         </div>
 
         <div class="ForH2">
-            <h2>Информация на главной странице</h2>
+            <h2>Главная страница</h2>
         </div>
 
         <div class="BlockColumn">
@@ -230,7 +233,7 @@
             <div class="PersonRow">
 
                 <div class="PersonItem">
-                    <p>Имена жениха и невесты для надписи красивым шрифтом</p>
+                    <p>Для надписи красивым шрифтом</p>
                     <input v-model="storePersonification.namesOfBrideAndGroomHeading" type="text"
                         placeholder="Введите имена жениха и невесты">
                 </div>
@@ -317,7 +320,13 @@
 
 <script setup>
 import { usePersonification } from '@/stores/Personification'
+import { useVariables } from '@/stores/Variables';
+const storeVariables = useVariables();
+//import usePersonification from '@/data.json'
 const storePersonification = usePersonification()
+
+
+
 </script>
 
 
@@ -336,6 +345,7 @@ textarea {
 }
 
 .PersonItemVip {
+    padding: 10px;
     width: 50%;
     padding-bottom: 30px;
     display: flex;
@@ -345,6 +355,7 @@ textarea {
 }
 
 .PersonItem {
+
     padding: 10px;
     display: flex;
     flex-direction: column;
@@ -357,7 +368,7 @@ textarea {
     border-radius: 7px;
     display: flex;
     flex-direction: row;
-
+    padding-bottom: 30px;
 }
 
 .BlockColumn {
@@ -366,7 +377,7 @@ textarea {
     border-radius: 7px;
     display: flex;
     flex-direction: column;
-
+    padding-bottom: 30px;
 }
 
 .PersonRow {
@@ -374,7 +385,7 @@ textarea {
     display: flex;
     flex-direction: row;
     justify-content: center;
-    padding-bottom: 30px;
+
 }
 
 .PersonColumn {
@@ -382,7 +393,7 @@ textarea {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    padding-bottom: 30px;
+
 }
 
 .PersonColumnCentered {
@@ -392,16 +403,29 @@ textarea {
     padding-bottom: 30px;
 }
 
+h1 {
+    display: flex;
+
+    justify-content: center;
+}
+
+.ForH1 {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
 .ForH2 {
-    padding: 20px;
+    padding: 10px 0px 10px 0px;
     display: flex;
     justify-content: center;
 }
 
 .ForH3 {
-    padding: 10px;
+    margin-bottom: -20px;
     display: flex;
     justify-content: center;
+    text-decoration: underline;
 }
 
 .Text3Rows {
@@ -412,6 +436,74 @@ textarea {
 }
 
 
+@media screen and (max-width: 900px) {
+    .Text3Rows {
+        width: 100%;
+    }
 
-@media screen and (max-width: 768px) {}
+    input {
+        width: 380px;
+    }
+
+    textarea {
+        width: 380px;
+    }
+}
+
+
+@media screen and (max-width: 768px) {
+    .PersonItemVip {
+        width: 100%;
+    }
+
+    .PersonFormContainer {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+    }
+
+    .PersonColumn {
+        width: 100%;
+    }
+
+    .BlockRow {
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+
+    }
+
+    .BlockColumn {
+        max-width: 99%;
+
+    }
+
+    .PersonRow {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .Text3Rows {
+        width: 100%;
+
+    }
+
+    textarea {
+        width: 100%;
+    }
+
+    input {
+        width: 100%;
+    }
+
+    .ForH2 {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    h1 {
+        text-align: center;
+    }
+}
 </style>

@@ -55,5 +55,10 @@ export const usePersonification = defineStore('personification', {
         banquetAddress: 'г. Воркута, ул. Мира 15',
 
 
-    })
+    }),
+    actions: {
+        sendPersonoficationForm () {
+            this.bridesName = ''
+        }
+    }
 })

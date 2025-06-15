@@ -102,6 +102,7 @@ export const useVariables = defineStore('variables', {
                 {name: "Тётя", surname: "Мотя", id: Math.random()},
                 ... this.guests]
         }
+        
 
        
 

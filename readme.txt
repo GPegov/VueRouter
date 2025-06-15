@@ -39,12 +39,12 @@
 	learn more about axios library
 	learn more about node js
 02.05.2024
-	develop a component that takes data from json file or db and shows it in a table or so.
+	develop a component that takes guest data from json file or db and shows it in a table or so.
 		--DONE-- send FormResults to MongoDb
 		--Can't be done due to sanctions-- send formResults to MongoDB Atlas
 21.07.2024 
 	Edit layout of a desktop version
-	Develop a server using my old laptop and store MongoDb database in it. (I will need static IP address for it, maybe i should find another solution)
+	Develop a server using my old laptop and store MongoDb database in it. (I will need static IP address for it, maybe I should find another solution)
 	Pass any Nodejs course
 	Learn more about IndexedDB
 	Learn more about Docker
@@ -53,7 +53,14 @@
 	Complete MyPersonalisationForm.vue:
 		- Set universal classes for rows of guests
 		- Write a function that takes first names of Bride and Groom and insert them in special field in MyPersonalisationForm 
+
+28.10.2024
+	Switch sending guest data from mongoDB server to Json file. 
+	Find and add pretty font for bride and Groom names on the main page
+	Add button "Send" in the end of MyPersonalisationForm page to modify all reactive data listed in it. (maybe it's better to use Json instead of Pinia storage in that case)
   
+30.10.2024
+	Add changing Pinia storage values through input and textarea fields in MyPersonalisationForm 
 	
 	
 
