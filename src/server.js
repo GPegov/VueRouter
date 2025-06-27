@@ -14,8 +14,8 @@ let db
 
 connectToDb((err) => {
     if(!err) {
-        server.listen(3000, () => {
-            console.log('app listening on port 3000')
+        server.listen(4000, () => {
+            console.log('app listening on port 4000')
         })
         db = getDb()
     }

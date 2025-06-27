@@ -41,34 +41,34 @@ import { ref, nextTick } from 'vue'
 const storeVariables = useVariables();
 const addGuestBtn = ref(null);
 const handleAddGuest = async () => {
-
+  
     // 1. Сохраняем гостя
-    storeVariables.saveGuest();
-
-    // 2. Форсированно скрываем клавиатуру
-    forceHideKeyboard();
+  storeVariables.saveGuest();
+  
+  // 2. Форсированно скрываем клавиатуру
+  forceHideKeyboard();
 };
 
 const forceHideKeyboard = () => {
-    // Способ 1: Стандартный blur (работает в большинстве случаев)
-    addGuestBtn.value?.blur();
-
-    // Способ 2: Создаем и удаляем временный input (для iOS)
-    const tmpInput = document.createElement('input');
-    tmpInput.style.position = 'absolute';
-    tmpInput.style.top = '-100px';
-    document.body.appendChild(tmpInput);
-    tmpInput.focus();
-
-    setTimeout(() => {
-        tmpInput.blur();
-        document.body.removeChild(tmpInput);
-    }, 100);
-
-    // Способ 3: Дополнительно скрываем через API (если поддерживается)
-    if ('virtualKeyboard' in navigator) {
-        navigator.virtualKeyboard.hide();
-    }
+  // Способ 1: Стандартный blur (работает в большинстве случаев)
+  addGuestBtn.value?.blur();
+  
+  // Способ 2: Создаем и удаляем временный input (для iOS)
+  const tmpInput = document.createElement('input');
+  tmpInput.style.position = 'absolute';
+  tmpInput.style.top = '-100px';
+  document.body.appendChild(tmpInput);
+  tmpInput.focus();
+  
+  setTimeout(() => {
+    tmpInput.blur();
+    document.body.removeChild(tmpInput);
+  }, 100);
+  
+  // Способ 3: Дополнительно скрываем через API (если поддерживается)
+  if ('virtualKeyboard' in navigator) {
+    navigator.virtualKeyboard.hide();
+  }
 };
 
 
@@ -96,8 +96,12 @@ const vAutofocus = {
                         placeholder="Фамилия Гостя">
                 </a>
             </div>
-            <button ref="addGuestBtn" class="btn addGuestbtn" @click="handleAddGuest" @keyup.enter="handleAddGuest">
-                Добавить гостя
+            <button 
+                ref="addGuestBtn"
+                class="btn addGuestbtn" 
+                @click="handleAddGuest" 
+                @keyup.enter="handleAddGuest">
+                    Добавить гостя
             </button>
 
             <!-- <button class="btn add10Guestbtn" @click="storeVariables.save10Guest">
@@ -282,24 +286,25 @@ const vAutofocus = {
 
                 <Transition name="collapse" mode="out-in">
                     <div class="sendButton" :key="6" ref="rows.fifth" v-bind="$attrs">
-                        <Transition name="all" mode="out-in">
-                            <div>
-                                <button v-show="((storeVariables.familyProperties.foodDoesntMatter
-                                    || storeVariables.familyProperties.foodMeat
-                                    || storeVariables.familyProperties.foodFish)
-                                    && (storeVariables.guests.length > 0))" class="btn send" @click="storeVariables.askGuestsResult(),
+                        <div class="rowOfButtons">
+                            <Transition name="all" mode="out-in">
+                                <div class="rowOfButtons">
+                                    <button
+                                        v-show="((storeVariables.familyProperties.foodDoesntMatter || storeVariables.familyProperties.foodMeat || storeVariables.familyProperties.foodFish) && (storeVariables.guests.length > 0))"
+                                        class="btn send" @click="storeVariables.askGuestsResult(),
                                             storeVariables.popupTriggerTimeout()
                                             ">
-                                    Отправить
-                                </button>
-                                <Transition name="all" mode="out-in">
-                                    <MyPopup v-if="storeVariables.popupTrigger">
-                                        <h3>Данные отправлены</h3>
-                                        <h3>Мы будем рады видеть вас на нашем торжестве!</h3>
-                                    </MyPopup>
-                                </Transition>
-                            </div>
-                        </Transition>
+                                        Отправить
+                                    </button>
+                                    <Transition name="all" mode="out-in">
+                                        <MyPopup v-if="storeVariables.popupTrigger">
+                                            <h3>Данные отправлены</h3>
+                                            <h3>Мы будем рады видеть вас на нашем торжестве!</h3>
+                                        </MyPopup>
+                                    </Transition>
+                                </div>
+                            </Transition>
+                        </div>
                     </div>
                 </Transition>
 
@@ -329,11 +334,11 @@ const vAutofocus = {
 
 /* New-style animations */
 .all-enter-active {
-    transition: all 0.4s ease;
+    transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 }
 
 .all-leave-active {
-    transition: all 0.3s ease;
+    transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
     position: absolute;
     left: 0;
     right: 0;
@@ -341,12 +346,12 @@ const vAutofocus = {
 
 .all-enter-from {
     opacity: 0;
-    transform: translateY(20px) scale(0.95) ease;
+    transform: translateY(20px) scale(0.95);
 }
 
 .all-leave-to {
     opacity: 0;
-    transform: translateY(-20px) scale(0.95) ease;
+    transform: translateY(-20px) scale(0.95);
 }
 
 /* New-style collapsing animations */
@@ -429,7 +434,7 @@ const vAutofocus = {
 }
 
 .list-enter-active {
-    transition: all 0.4s ease;
+    transition: all 0.5s ease;
 }
 
 .list-leave-active {
@@ -479,7 +484,7 @@ const vAutofocus = {
     margin: 30px auto;
 }
 
-/* .askGuests {
+.askGuests {
     /* display: flex;
     flex-direction: column;
     align-items: center; */
@@ -489,9 +494,9 @@ const vAutofocus = {
     grid-template-columns: 1fr 1fr;
     grid-gap: 20px;
     max-width: 400px;
-    margin: 30px auto; 
-}*/
+    margin: 30px auto; */
 
+}
 
 .additionalAskButtons li {
     display: flex;
@@ -507,7 +512,7 @@ const vAutofocus = {
     line-height: 1.5em;
 }
 
-/* .additionalAskButtons {
+.additionalAskButtons {
 
 
     /* padding: 0;
@@ -515,9 +520,9 @@ const vAutofocus = {
     grid-template-columns: 1fr 1fr;
     grid-gap: 20px;
     max-width: 400px;
-    margin: 30px auto; 
+    margin: 30px auto; */
 
-} */
+}
 
 
 .rowOfButtons {
@@ -708,7 +713,7 @@ const vAutofocus = {
 
 .pressed {
     background: #a2fdd7;
-    box-shadow: 0 0 50px #9effd7;
+    box-shadow: 0 0 40px #9effd7;
     color: black;
 }
 

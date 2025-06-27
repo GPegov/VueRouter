@@ -1,5 +1,26 @@
 {
   "guests": [
-    
+    {
+      "date": "27.06.2025, 23:14:11",
+      "guests": [
+        {
+          "id": 1751055244013,
+          "name": "павпаывпвы",
+          "surname": "папвыпавып"
+        }
+      ],
+      "properties": {
+        "alone": false,
+        "couple": true,
+        "withChildren": false,
+        "withoutChildren": true,
+        "onCar": false,
+        "needTransfer": true,
+        "foodDoesntMatter": false,
+        "foodMeat": false,
+        "foodFish": true
+      },
+      "id": 1
+    }
   ]
 }

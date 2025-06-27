@@ -10,7 +10,8 @@ const routes = [
   {path: "/Place", name: "place", component: () => import ('@/views/MyPlace.vue')},
   {path:"/Plan", name: "plan", component: () => import ('@/views/MySeatingPlan.vue')},
   {path:"/GuestList", name: "guestlist", component: () => import ('@/views/MyGuestsDb.vue')},
-  {path:"/Personification", name: "personification", component: () => import ('@/views/MyPersonificationForm.vue')}
+  {path:"/Personification", name: "personification", component: () => import ('@/views/MyPersonificationForm.vue')},
+  {path: "/:pathMatch(.*)*", name: 'NotFound', component: () => import('@/views/NotFoundView.vue')},
   
   
 ];
