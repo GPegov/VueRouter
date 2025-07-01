@@ -16,7 +16,7 @@
     left: 0;
     right: 0;
     bottom: -60px;
-    z-index: 99;
+    z-index: 3;
     background-color: rgba(0, 0, 0, 0.2);
 
     display: flex;

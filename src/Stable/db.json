@@ -1,0 +1,42 @@
+{
+  "Guest-groups": [
+    {
+      "date": "29.06.2025, 20:21:28",
+      "guests": [
+        {
+          "id": 1751217685052,
+          "name": "Гена",
+          "surname": "Пегов",
+          "properties": {
+            "alone": true,
+            "couple": false,
+            "withChildren": true,
+            "withoutChildren": false,
+            "onCar": true,
+            "needTransfer": false,
+            "foodDoesntMatter": false,
+            "foodMeat": true,
+            "foodFish": false
+          }
+        },
+        {
+          "id": 1751217685052,
+          "name": "Даша",
+          "surname": "Пегова",
+          "properties": {
+            "alone": false,
+            "couple": true,
+            "withChildren": true,
+            "withoutChildren": false,
+            "onCar": true,
+            "needTransfer": false,
+            "foodDoesntMatter": false,
+            "foodMeat": true,
+            "foodFish": false
+          }
+        }
+      ],
+      "id": 1
+    }
+  ]
+}

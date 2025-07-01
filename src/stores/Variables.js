@@ -3,44 +3,89 @@ import { defineStore } from "pinia";
 export const useVariables = defineStore("variables", {
   state: () => ({
     guests: [],
-    guest: { name: "", surname: "" },
-    familyProperties: {
-      alone: false,
-      couple: false,
-      withChildren: false,
-      withoutChildren: false,
-      onCar: false,
-      needTransfer: false,
-      foodDoesntMatter: false,
-      foodMeat: false,
-      foodFish: false,
+    guest: {
+      name: "",
+      surname: "",
+      properties: {
+        alone: false,
+        couple: false,
+        withChildren: false,
+        withoutChildren: false,
+        onCar: false,
+        needTransfer: false,
+        foodDoesntMatter: false,
+        foodMeat: false,
+        foodFish: false,
+      },
     },
     showToast: false,
     popupTrigger: false,
   }),
 
   actions: {
-    
     async saveGuest() {
       if (!this.guest.name.trim() || !this.guest.surname.trim()) {
         this.triggerToast();
-        return false; // Возвращаем статус успеха
+        return false;
       }
 
       this.guests.unshift({
         id: Date.now(),
         name: this.guest.name.trim(),
         surname: this.guest.surname.trim(),
+        properties: { ...this.guest.properties }, // Копируем текущие свойства
       });
 
+      // Сбрасываем только имя и фамилию
       this.guest.name = "";
       this.guest.surname = "";
-      
-      return true; // Успешное сохранение
+
+      return true;
     },
-    
-    
-    
+
+    resetGuestProperties() {
+      this.guest.properties = {
+        alone: false,
+        couple: false,
+        withChildren: false,
+        withoutChildren: false,
+        onCar: false,
+        needTransfer: false,
+        foodDoesntMatter: false,
+        foodMeat: false,
+        foodFish: false
+      }
+    },
+
+    async submitGuestGroup() {
+      if (this.guests.length === 0) {
+        this.triggerToast();
+        return;
+      }
+
+      try {
+        const response = await fetch("http://localhost:4000/guest-groups", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            id: Date.now(),
+            date: new Date().toLocaleString("ru-RU"),
+            guests: this.guests,
+          }),
+        });
+
+        if (!response.ok) throw new Error("Ошибка сервера");
+
+        this.resetForm();
+        this.popupTriggerTimeout();
+      } catch (error) {
+        console.error("Ошибка сохранения:", error);
+        this.triggerToast();
+      }
+    },
+
     // saveGuest() {
     //   if (!this.guest.name.trim() || !this.guest.surname.trim()) {
     //     this.triggerToast();
@@ -189,5 +234,13 @@ export const useVariables = defineStore("variables", {
     //         {name: "Тётя", surname: "Мотя", id: Math.random()},
     //         ... this.guests]
     // }
+  },
+  getters: {
+    isFormValid() {
+      return (
+        this.guest.name.trim().length > 0 &&
+        this.guest.surname.trim().length > 0
+      );
+    },
   },
 });

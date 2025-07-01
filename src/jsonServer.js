@@ -23,6 +23,45 @@ server.use(cors())
 server.use(jsonServer.bodyParser)
 server.use(middlewares)
 
+
+// Добавление группы гостей
+// Изменяем эндпоинты для работы с группами гостей
+server.post('/guest-groups', (req, res) => {
+  try {
+    const newGroup = req.body;
+    
+    // Проверяем обязательные поля
+    if (!newGroup.date || !newGroup.guests || !Array.isArray(newGroup.guests)) {
+      return res.status(400).json({ 
+        success: false,
+        error: 'Invalid data format' 
+      });
+    }
+
+    // Добавляем ID если его нет
+    if (!newGroup.id) {
+      newGroup.id = Date.now();
+    }
+
+    // Добавляем новую группу
+    router.db.get('guest-groups').push(newGroup).write();
+    
+    res.status(201).json({ 
+      success: true,
+      message: 'Group added successfully',
+      groupId: newGroup.id
+    });
+  } catch (err) {
+    res.status(500).json({
+      success: false,
+      error: 'Internal server error'
+    });
+  }
+});
+
+
+
+
 // Удаление группы гостей
 server.delete('/guest-groups/:groupId', (req, res) => {
   try {

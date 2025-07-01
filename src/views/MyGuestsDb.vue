@@ -5,71 +5,144 @@
             <p class="subtitle">Добавьте и редактируйте список гостей</p>
         </div>
 
+        <!-- Форма добавления гостя -->
         <div class="add-guest-form">
             <div class="input-group">
                 <input ref="nameInput" type="text" placeholder="Имя гостя" v-model="store.guest.name"
-                    @keyup.enter="handleAddGuest" class="input-field">
+                     class="input-field">
                 <input ref="descInput" type="text" placeholder="Фамилия гостя" v-model="store.guest.surname"
-                    @keyup.enter="handleAddGuest" class="input-field">
+                     class="input-field">
             </div>
+            
+        
 
-            <div class="button-group">
-                <button @click="handleAddGuest" :disabled="!isFormValid" class="submit-btn">
-                    <span v-if="!isLoading">Добавить гостя</span>
-                    <span v-else class="loader"></span>
-                </button>
 
-                <button @click="loadFromDb" class="load-btn" :disabled="isLoading">
-                    <span v-if="!isLoading">Загрузить из db.json</span>
-                    <span v-else class="loader"></span>
-                </button>
-            </div>
-        </div>
 
-        <div class="guest-list-container">
-            <transition name="fade" mode="out-in">
-                <div v-if="store.guests.length" class="guest-list">
-                    <div v-for="group in store.guests" :key="group.id" class="guest-group">
-                        <div class="group-header">
-                            <h3>Группа от {{ group.date }}</h3>
-                            <button @click="prepareDeleteGroup(group.id)" class="delete-group-btn"
-                                title="Удалить группу">
-                                Удалить группу
-                            </button>
-                        </div>
-
-                        <transition-group name="list" tag="div">
-                            <div v-for="guest in group.guests" :key="guest.id" class="guest-item">
-                                <div class="guest-info">
-                                    <span class="guest-name">{{ guest.name }}</span>
-                                    <span class="guest-surname">{{ guest.surname }}</span>
-                                </div>
-
-                                <button @click="prepareDeleteGuest(group.id, guest.id)" class="delete-btn"
-                                    title="Удалить">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24">
-                                        <path
-                                            d="M3 6v18h18v-18h-18zm5 14c0 .552-.448 1-1 1s-1-.448-1-1v-10c0-.552.448-1 1-1s1 .448 1 1v10zm5 14c0 .552-.448 1-1 1s-1-.448-1-1v-10c0-.552.448-1 1-1s1 .448 1 1v10zm5 0c0 .552-.448 1-1 1s-1-.448-1-1v-10c0-.552.448-1 1-1s1 .448 1 1v10zm4-18v2h-20v-2h5.711c.9 0 1.631-1.099 1.631-2h5.315c0 .901.73 2 1.631 2h5.712z" />
-                                    </svg>
-                                </button>
-                            </div>
-                        </transition-group>
-                    </div>
-                </div>
-
-                <div v-else class="empty-state">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none"
-                        stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
-                        <circle cx="9" cy="7" r="4"></circle>
-                        <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
-                        <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
-                    </svg>
-                    <p>Список гостей пуст</p>
-                    <p>Добавьте первого гостя или загрузите из файла</p>
+        <!-- Ряды кнопок с параметрами -->
+        <div class="properties-section" v-if="store.isFormValid">
+            <!-- 1-й ряд: Один/одна или с парой -->
+            <transition name="collapse" mode="out-in">
+                <div class="properties-row">
+                    <button class="property-btn" :class="{ 'active': store.guest.properties.alone }"
+                        @click="toggleProperty('alone')">
+                        Один/одна
+                    </button>
+                    <button class="property-btn" :class="{ 'active': store.guest.properties.couple }"
+                        @click="toggleProperty('couple')">
+                        С парой
+                    </button>
                 </div>
             </transition>
+
+            <!-- 2-й ряд: С детьми или без -->
+            <transition name="collapse" mode="out-in">
+                <div class="properties-row" v-if="
+                    (store.guest.properties.alone || store.guest.properties.couple)">
+                    <button class="property-btn" :class="{ 'active': store.guest.properties.withChildren }"
+                        @click="toggleProperty('withChildren')">
+                        С детьми
+                    </button>
+                    <button class="property-btn" :class="{ 'active': store.guest.properties.withoutChildren }"
+                        @click="toggleProperty('withoutChildren')">
+                        Без детей
+                    </button>
+                </div>
+            </transition>
+
+            <!-- 3-й ряд: На машине или трансфер -->
+            <transition name="collapse" mode="out-in">
+                <div class="properties-row" v-if="
+                    (store.guest.properties.withChildren || store.guest.properties.withoutChildren)">
+                    <button class="property-btn" :class="{ 'active': store.guest.properties.onCar }"
+                        @click="toggleProperty('onCar')">
+                        На машине
+                    </button>
+                    <button class="property-btn" :class="{ 'active': store.guest.properties.needTransfer }"
+                        @click="toggleProperty('needTransfer')">
+                        Нужен трансфер
+                    </button>
+                </div>
+            </transition>
+
+            <!-- 4-й ряд: Предпочтения по еде -->
+            <transition name="collapse" mode="out-in">
+                <div class="properties-row" v-if="
+                    (store.guest.properties.onCar || store.guest.properties.needTransfer)">
+                    <button class="property-btn" :class="{ 'active': store.guest.properties.foodMeat }"
+                        @click="toggleProperty('foodMeat')">
+                        Мясо
+                    </button>
+                    <button class="property-btn" :class="{ 'active': store.guest.properties.foodFish }"
+                        @click="toggleProperty('foodFish')">
+                        Рыба
+                    </button>
+                </div>
+            </transition>
+
+            <!-- Кнопка добавления следующего гостя -->
+            <!-- <transition name="fade">
+                <button v-if="showAddNextButton" @click="allowAddNextGuest" class="add-next-btn">
+                    Добавить следующего гостя
+                </button>
+            </transition> -->
         </div>
+
+        <!-- Список добавленных гостей -->
+        <div class="guest-list-container" v-if="store.guests.length > 0">
+            <transition-group name="list" tag="div">
+                <div v-for="guest in store.guests" :key="guest.id" class="guest-item">
+                    <div class="guest-info">
+                        <span class="guest-name">{{ guest.name }} {{ guest.surname }}</span>
+                        <div class="guest-properties-icons">
+                            <span v-if="guest.properties.alone">👤</span>
+                            <span v-if="guest.properties.couple">👫</span>
+                            <span v-if="guest.properties.withChildren">👪</span>
+                            <span v-if="guest.properties.onCar">🚗</span>
+                            <span v-if="guest.properties.needTransfer">🚌</span>
+                            <span v-if="guest.properties.foodMeat">🍖</span>
+                            <span v-if="guest.properties.foodFish">🐟</span>
+                        </div>
+                    </div>
+                    <button @click="store.deleteGuest(guest.id)" class="delete-btn" title="Удалить">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24">
+                            <path
+                                d="M3 6v18h18v-18h-18zm5 14c0 .552-.448 1-1 1s-1-.448-1-1v-10c0-.552.448-1 1-1s1 .448 1 1v10zm5 14c0 .552-.448 1-1 1s-1-.448-1-1v-10c0-.552.448-1 1-1s1 .448 1 1v10zm5 0c0 .552-.448 1-1 1s-1-.448-1-1v-10c0-.552.448-1 1-1s1 .448 1 1v10zm4-18v2h-20v-2h5.711c.9 0 1.631-1.099 1.631-2h5.315c0 .901.73 2 1.631 2h5.712z" />
+                        </svg>
+                    </button>
+                </div>
+            </transition-group>
+        </div>
+
+        <button 
+                @click="handleAddGuest" 
+                @keyup.enter="handleAddGuest"
+                :disabled="!store.isFormValid" class="submit-btn">
+                Добавить гостя
+            </button>
+        </div>
+
+
+        <!-- Кнопка подтверждения -->
+        <transition name="fade">
+            <div class="confirm-section" v-if="store.guests.length > 0 && 
+                (store.guest.name == 0 && store.guest.surname == 0)">
+                <button class="confirm-btn" @click="confirmPresence">
+                    Закончить заполнение и отправить данные гостей
+                </button>
+            </div>
+        </transition>
+
+        <!-- Сообщение о добавлении гостя -->
+        <transition name="fade">
+            <div v-if="guestAddedMessage" class="guest-added-message">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                    <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                </svg>
+                Гость добавлен!
+            </div>
+        </transition>
 
         <transition name="fade">
             <div v-if="error" class="error-message">
@@ -79,236 +152,108 @@
         </transition>
 
         <transition name="fade">
-            <div v-if="showConfirmModal" class="modal-overlay" @click.self="cancelAction">
-                <div class="modal-content">
-                    <h3>{{ confirmMessage }}</h3>
-                    <div class="modal-buttons">
-                        <button @click.stop="confirmAction" class="confirm-btn">Да, удалить</button>
-                        <button @click.stop="cancelAction" class="cancel-btn">Отмена</button>
-                    </div>
-                </div>
-            </div>
+            <MyPopup v-if="store.popupTrigger">
+                <h3>Данные отправлены</h3>
+                <h3>Мы будем рады видеть вас на нашем торжестве!</h3>
+            </MyPopup>
         </transition>
-
     </div>
 </template>
 
+
+
+
+
+
 <script setup>
-import { ref, computed, onMounted } from 'vue'
+import { ref } from 'vue'
 import { useVariables } from '@/stores/Variables.js'
+import MyPopup from '@/components/MyPopup.vue'
 
 const store = useVariables()
-const isLoading = ref(false)
 const error = ref(null)
 const nameInput = ref(null)
 const descInput = ref(null)
+const guestAddedMessage = ref(false)
 
-const showConfirmModal = ref(false)
-const confirmMessage = ref('')
-const actionToConfirm = ref(null)
-const currentGroupId = ref(null)
-const currentGuestId = ref(null)
 
-const isFormValid = computed(() => {
-    return store.guest.name.trim() && store.guest.surname.trim()
-})
-
-// Подготовка удаления группы
-const prepareDeleteGroup = (groupId) => {
-    currentGroupId.value = groupId
-    confirmMessage.value = 'Вы уверены, что хотите удалить эту группу гостей?'
-    actionToConfirm.value = 'deleteGroup'
-    showConfirmModal.value = true
-}
-
-// Подготовка удаления гостя
-const prepareDeleteGuest = (groupId, guestId) => {
-    currentGroupId.value = groupId
-    currentGuestId.value = guestId
-    confirmMessage.value = 'Вы уверены, что хотите удалить этого гостя?'
-    actionToConfirm.value = 'deleteGuest'
-    showConfirmModal.value = true
-}
-
-// Подтверждение действия
-const confirmAction = async () => {
-    showConfirmModal.value = false
-
-    if (actionToConfirm.value === 'deleteGroup') {
-        await handleDeleteGuestGroup(currentGroupId.value)
-    } else if (actionToConfirm.value === 'deleteGuest') {
-        await handleDeleteGuest(currentGroupId.value, currentGuestId.value)
+const confirmPresence = async () => {
+  try {
+    if (store.guests.length === 0) {
+      error.value = 'Добавьте хотя бы одного гостя';
+      return;
     }
-}
 
-// Отмена действия
-const cancelAction = () => {
-    showConfirmModal.value = false
-}
+    await store.submitGuestGroup();
+  } catch (err) {
+    error.value = 'Ошибка при сохранении данных';
+    console.error('Ошибка:', err);
+  }
+};
 
 
 
-const hideKeyboard = () => {
-    nameInput.value?.blur()
-    descInput.value?.blur()
-
-    const tmpInput = document.createElement('input')
-    tmpInput.style.position = 'absolute'
-    tmpInput.style.top = '-100px'
-    document.body.appendChild(tmpInput)
-    tmpInput.focus()
-    setTimeout(() => {
-        tmpInput.blur()
-        document.body.removeChild(tmpInput)
-    }, 100)
-}
-
-const loadFromDb = async () => {
-    try {
-        isLoading.value = true
-        error.value = null
-
-        const response = await fetch('http://localhost:4000/guests', {
-            cache: 'no-store' // Полностью отключаем кэширование
-        })
-
-        if (!response.ok) {
-            throw new Error(`Ошибка загрузки: ${response.status}`)
-        }
-
-        const data = await response.json()
-        store.guests = data
-
-    } catch (err) {
-        error.value = err.message
-        console.error('Ошибка fetch:', err)
-    } finally {
-        isLoading.value = false
+const toggleProperty = (prop) => {
+    // Логика взаимоисключающих свойств
+    if (prop === 'alone') {
+        store.guest.properties.couple = false
+    } else if (prop === 'couple') {
+        store.guest.properties.alone = false
+    } else if (prop === 'withChildren') {
+        store.guest.properties.withoutChildren = false
+    } else if (prop === 'withoutChildren') {
+        store.guest.properties.withChildren = false
+    } else if (prop === 'onCar') {
+        store.guest.properties.needTransfer = false
+    } else if (prop === 'needTransfer') {
+        store.guest.properties.onCar = false
+    } else if (prop === 'foodMeat') {
+        store.guest.properties.foodFish = false
+    } else if (prop === 'foodFish') {
+        store.guest.properties.foodMeat = false
     }
+    // Переключаем выбранное свойство
+    store.guest.properties[prop] = !store.guest.properties[prop]
 }
+
+
 
 
 
 const handleAddGuest = async () => {
-    if (!isFormValid.value) return
+  if (!store.guest.name.trim() || !store.guest.surname.trim()) {
+    error.value = 'Введите имя и фамилию гостя'
+    return
+  }
 
-    try {
-        isLoading.value = true
-        error.value = null
-
-        const success = await store.saveGuest()
-        if (success) {
-            hideKeyboard()
-            await loadFromDb() // Обновляем данные после добавления
-        }
-    } catch (err) {
-        error.value = `Ошибка при добавлении: ${err.message}`
-        console.error('Ошибка при добавлении гостя:', err)
-    } finally {
-        isLoading.value = false
+  try {
+    const success = await store.saveGuest()
+    if (success) {
+      store.resetGuestProperties() // Сбрасываем параметры через хранилище
+      
+      guestAddedMessage.value = true
+      setTimeout(() => {
+        guestAddedMessage.value = false
+      }, 3000)
     }
+  } catch (err) {
+    error.value = 'Ошибка при добавлении гостя'
+    console.error(err)
+  }
 }
 
-const handleDeleteGuestGroup = async (groupId) => {
-    try {
-        isLoading.value = true
-        error.value = null
 
-        const response = await fetch(`http://localhost:4000/guest-groups/${groupId}`, {
-            method: 'DELETE'
-        })
 
-        const result = await response.json()
 
-        if (!result.success) {
-            throw new Error(result.error || 'Failed to delete group')
-        }
 
-        store.guests = store.guests.filter(g => g.id !== groupId)
-
-    } catch (err) {
-        error.value = `Delete error: ${err.message}`
-        console.error('Error:', err)
-    } finally {
-        isLoading.value = false
-    }
-}
-
-const handleDeleteGuest = async (groupId, guestId) => {
-    try {
-        isLoading.value = true
-        error.value = null
-
-        const response = await fetch(
-            `http://localhost:4000/groups/${groupId}/guests/${guestId}`,
-            { method: 'DELETE' }
-        )
-
-        const result = await response.json()
-
-        if (!result.success) {
-            throw new Error(result.error || 'Failed to delete guest')
-        }
-
-        store.guests = store.guests.map(group => {
-            if (group.id === groupId) {
-                return {
-                    ...group,
-                    guests: group.guests.filter(g => g.id !== guestId)
-                }
-            }
-            return group
-        })
-
-    } catch (err) {
-        error.value = `Delete error: ${err.message}`
-        console.error('Error:', err)
-    } finally {
-        isLoading.value = false
-    }
-}
-
-onMounted(() => {
-    loadFromDb()
-})
-
-onMounted(() => {
-  window.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && showConfirmModal.value) {
-      cancelAction()
-    }
-  })
-})
 </script>
 
+
+
+
+
+
 <style scoped>
-.guest-group {
-    margin-bottom: 2rem;
-    padding: 1rem;
-    background: #f0f8ff;
-    border-radius: 8px;
-}
-
-.group-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 1rem;
-}
-
-.delete-group-btn {
-    background-color: #e74c3c;
-    color: white;
-    border: none;
-    padding: 0.5rem 1rem;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.2s;
-}
-
-.delete-group-btn:hover {
-    background-color: #c0392b;
-}
 
 .guest-manager {
     max-width: 600px;
@@ -333,7 +278,7 @@ onMounted(() => {
     font-size: 1rem;
 }
 
-.add-guest-form {
+.guest-form {
     background: #fff;
     border-radius: 8px;
     padding: 1.5rem;
@@ -362,28 +307,37 @@ onMounted(() => {
     box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
 }
 
-.button-group {
+.properties-section {
+    margin-bottom: 1.5rem;
+}
+
+.properties-row {
     display: flex;
     gap: 1rem;
+    margin-bottom: 1rem;
+    justify-content: center;
+}
+
+.property-btn {
+    padding: 0.75rem 1.5rem;
+    background: #e9ecef;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-size: 1rem;
+}
+
+.property-btn.active {
+    background: #3498db;
+    color: white;
+    box-shadow: 0 0 10px rgba(52, 152, 219, 0.5);
 }
 
 .submit-btn {
-    flex: 1;
+    width: 100%;
     padding: 0.75rem;
     background-color: #3498db;
-    color: white;
-    border: none;
-    border-radius: 6px;
-    font-size: 1rem;
-    font-weight: 500;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-.load-btn {
-    flex: 1;
-    padding: 0.75rem;
-    background-color: #2ecc71;
     color: white;
     border: none;
     border-radius: 6px;
@@ -397,30 +351,9 @@ onMounted(() => {
     background-color: #2980b9;
 }
 
-.load-btn:hover {
-    background-color: #27ae60;
-}
-
-.submit-btn:disabled,
-.load-btn:disabled {
+.submit-btn:disabled {
     background-color: #bdc3c7;
     cursor: not-allowed;
-}
-
-.loader {
-    display: inline-block;
-    width: 20px;
-    height: 20px;
-    border: 3px solid rgba(255, 255, 255, 0.3);
-    border-radius: 50%;
-    border-top-color: white;
-    animation: spin 1s ease-in-out infinite;
-}
-
-@keyframes spin {
-    to {
-        transform: rotate(360deg);
-    }
 }
 
 .guest-list-container {
@@ -428,6 +361,7 @@ onMounted(() => {
     border-radius: 8px;
     padding: 1.5rem;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    margin-bottom: 2rem;
 }
 
 .guest-list {
@@ -448,16 +382,19 @@ onMounted(() => {
 .guest-info {
     display: flex;
     flex-direction: column;
+    flex-grow: 1;
 }
 
 .guest-name {
     font-weight: 500;
     color: #2c3e50;
+    margin-bottom: 0.5rem;
 }
 
-.guest-surname {
-    font-size: 0.875rem;
-    color: #7f8c8d;
+.guest-properties-icons {
+    display: flex;
+    gap: 0.5rem;
+    font-size: 1.2rem;
 }
 
 .delete-btn {
@@ -474,20 +411,27 @@ onMounted(() => {
     background-color: rgba(231, 76, 60, 0.1);
 }
 
-.empty-state {
-    text-align: center;
-    padding: 2rem;
-    color: #7f8c8d;
+.confirm-section {
+    display: flex;
+    justify-content: center;
+    margin-top: 2rem;
 }
 
-.empty-state svg {
-    margin-bottom: 1rem;
-    color: #bdc3c7;
-}
-
-.empty-state p:first-of-type {
+.confirm-btn {
+    padding: 1rem 2rem;
+    background-color: #2ecc71;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 1.1rem;
     font-weight: 500;
-    margin-bottom: 0.5rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    box-shadow: 0 2px 15px rgba(46, 204, 113, 0.3);
+}
+
+.confirm-btn:hover {
+    background-color: #27ae60;
 }
 
 .error-message {
@@ -513,70 +457,6 @@ onMounted(() => {
     cursor: pointer;
     padding: 0;
     margin-left: 1rem;
-}
-
-.modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(0, 0, 0, 0.3); /* Уменьшили прозрачность */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 2;
-}
-
-.modal-content {
-  background: white;
-  padding: 2rem;
-  border-radius: 8px;
-  max-width: 400px;
-  width: 90%;
-  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.2);
-  pointer-events: auto; /* Важно: позволяет взаимодействовать с содержимым */
-  z-index: 3;
-}
-
-.modal-content h3 {
-    margin-top: 0;
-    color: #2c3e50;
-}
-
-.modal-buttons {
-    display: flex;
-    justify-content: flex-end;
-    gap: 1rem;
-    margin-top: 1.5rem;
-}
-
-.confirm-btn {
-    background-color: #e74c3c;
-    color: white;
-    border: none;
-    padding: 0.5rem 1rem;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.2s;
-}
-
-.confirm-btn:hover {
-    background-color: #c0392b;
-}
-
-.cancel-btn {
-    background-color: #ecf0f1;
-    color: #2c3e50;
-    border: none;
-    padding: 0.5rem 1rem;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.2s;
-}
-
-.cancel-btn:hover {
-    background-color: #bdc3c7;
 }
 
 /* Анимации */
@@ -605,27 +485,18 @@ onMounted(() => {
     transition: transform 0.3s ease;
 }
 
-.fade-enter-active,
-.fade-leave-active {
-    transition: opacity 0.3s ease;
-}
-
-.fade-enter-from,
-.fade-leave-to {
-    opacity: 0;
-}
-
 @media (max-width: 600px) {
     .input-group {
         grid-template-columns: 1fr;
     }
 
-    .button-group {
-        flex-direction: column;
-    }
-
     .guest-manager {
         padding: 1rem;
+    }
+
+    .properties-row {
+        flex-direction: column;
+        gap: 0.5rem;
     }
 }
 </style>

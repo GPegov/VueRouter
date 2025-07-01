@@ -1,26 +1,244 @@
 {
-  "guests": [
+  "guest-groups": [
     {
-      "date": "27.06.2025, 23:14:11",
+      "date": "29.06.2025, 20:21:28",
       "guests": [
         {
-          "id": 1751055244013,
-          "name": "павпаывпвы",
-          "surname": "папвыпавып"
+          "id": 1751217685052,
+          "name": "Гена",
+          "surname": "Пегов",
+          "properties": {
+            "alone": true,
+            "couple": false,
+            "withChildren": true,
+            "withoutChildren": false,
+            "onCar": true,
+            "needTransfer": false,
+            "foodDoesntMatter": false,
+            "foodMeat": true,
+            "foodFish": false
+          }
+        },
+        {
+          "id": 1751217685052,
+          "name": "Даша",
+          "surname": "Пегова",
+          "properties": {
+            "alone": false,
+            "couple": true,
+            "withChildren": true,
+            "withoutChildren": false,
+            "onCar": true,
+            "needTransfer": false,
+            "foodDoesntMatter": false,
+            "foodMeat": true,
+            "foodFish": false
+          }
         }
       ],
-      "properties": {
-        "alone": false,
-        "couple": true,
-        "withChildren": false,
-        "withoutChildren": true,
-        "onCar": false,
-        "needTransfer": true,
-        "foodDoesntMatter": false,
-        "foodMeat": false,
-        "foodFish": true
-      },
       "id": 1
+    },
+    {
+      "id": 1751382589439,
+      "date": "01.07.2025, 18:09:49",
+      "guests": [
+        {
+          "id": 1751382578983,
+          "name": "dssdsdsd",
+          "surname": "dsdsdsdsdsdsd",
+          "properties": {
+            "alone": true,
+            "couple": false,
+            "withChildren": false,
+            "withoutChildren": true,
+            "onCar": true,
+            "needTransfer": false,
+            "foodDoesntMatter": false,
+            "foodMeat": false,
+            "foodFish": true
+          }
+        }
+      ]
+    },
+    {
+      "id": 1751382631639,
+      "date": "01.07.2025, 18:10:31",
+      "guests": [
+        {
+          "id": 1751382627422,
+          "name": "1111111111111111111",
+          "surname": "22222222222222222",
+          "properties": {
+            "alone": true,
+            "couple": false,
+            "withChildren": false,
+            "withoutChildren": true,
+            "onCar": true,
+            "needTransfer": false,
+            "foodDoesntMatter": false,
+            "foodMeat": false,
+            "foodFish": true
+          }
+        }
+      ]
+    },
+    {
+      "id": 1751384968359,
+      "date": "01.07.2025, 18:49:28",
+      "guests": [
+        {
+          "id": 1751383530573,
+          "name": "6666666",
+          "surname": "666666666",
+          "properties": {
+            "alone": true,
+            "couple": false,
+            "withChildren": false,
+            "withoutChildren": true,
+            "onCar": true,
+            "needTransfer": false,
+            "foodDoesntMatter": false,
+            "foodMeat": true,
+            "foodFish": false
+          }
+        },
+        {
+          "id": 1751383509222,
+          "name": "55555555",
+          "surname": "555555555",
+          "properties": {
+            "alone": true,
+            "couple": false,
+            "withChildren": true,
+            "withoutChildren": false,
+            "onCar": false,
+            "needTransfer": true,
+            "foodDoesntMatter": false,
+            "foodMeat": true,
+            "foodFish": false
+          }
+        }
+      ]
+    },
+    {
+      "id": 1751385597655,
+      "date": "01.07.2025, 18:59:57",
+      "guests": [
+        {
+          "id": 1751385586918,
+          "name": "3",
+          "surname": "eewew",
+          "properties": {
+            "alone": true,
+            "couple": false,
+            "withChildren": false,
+            "withoutChildren": true,
+            "onCar": true,
+            "needTransfer": false,
+            "foodDoesntMatter": false,
+            "foodMeat": true,
+            "foodFish": false
+          }
+        },
+        {
+          "id": 1751385567023,
+          "name": "324321",
+          "surname": "3421432",
+          "properties": {
+            "alone": true,
+            "couple": false,
+            "withChildren": true,
+            "withoutChildren": false,
+            "onCar": true,
+            "needTransfer": false,
+            "foodDoesntMatter": false,
+            "foodMeat": false,
+            "foodFish": true
+          }
+        }
+      ]
+    },
+    {
+      "id": 1751385763007,
+      "date": "01.07.2025, 19:02:43",
+      "guests": [
+        {
+          "id": 1751385744630,
+          "name": "eqwrewq",
+          "surname": "erwqer",
+          "properties": {
+            "alone": true,
+            "couple": false,
+            "withChildren": true,
+            "withoutChildren": false,
+            "onCar": true,
+            "needTransfer": false,
+            "foodDoesntMatter": false,
+            "foodMeat": true,
+            "foodFish": false
+          }
+        }
+      ]
+    },
+    {
+      "id": 1751385950694,
+      "date": "01.07.2025, 19:05:50",
+      "guests": [
+        {
+          "id": 1751385943954,
+          "name": "435",
+          "surname": "4532",
+          "properties": {
+            "alone": true,
+            "couple": false,
+            "withChildren": true,
+            "withoutChildren": false,
+            "onCar": true,
+            "needTransfer": false,
+            "foodDoesntMatter": false,
+            "foodMeat": true,
+            "foodFish": false
+          }
+        },
+        {
+          "id": 1751385847134,
+          "name": "rewrtre",
+          "surname": "trewtewrt",
+          "properties": {
+            "alone": true,
+            "couple": false,
+            "withChildren": true,
+            "withoutChildren": false,
+            "onCar": true,
+            "needTransfer": false,
+            "foodDoesntMatter": false,
+            "foodMeat": true,
+            "foodFish": false
+          }
+        }
+      ]
+    },
+    {
+      "id": 1751385966482,
+      "date": "01.07.2025, 19:06:06",
+      "guests": [
+        {
+          "id": 1751385961251,
+          "name": "retrr",
+          "surname": "rewtrwet",
+          "properties": {
+            "alone": true,
+            "couple": false,
+            "withChildren": false,
+            "withoutChildren": true,
+            "onCar": true,
+            "needTransfer": false,
+            "foodDoesntMatter": false,
+            "foodMeat": true,
+            "foodFish": false
+          }
+        }
+      ]
     }
   ]
 }
